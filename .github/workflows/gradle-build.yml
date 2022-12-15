@@ -5,14 +5,16 @@ on:
         type: string
         default: "build"
         required: false
+      scoop-bucket-repo:
+        type: string
+        required: false
+      homebrew-tap-repo:
+        type: string
+        required: false
     secrets:
       GITHUB_TOKEN:
         required: false
       GITHUB_PUBLISH_TOKEN:
-        required: false
-      SCOOP_BUCKET_REPO:
-        required: false
-      HOMEBREW_TAP_REPO:
         required: false
 
 jobs:
@@ -35,7 +37,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_PUBLISH_TOKEN: ${{ secrets.GITHUB_PUBLISH_TOKEN }}
-          SCOOP_BUCKET_REPO: ${{ secrets.SCOOP_BUCKET_REPO }}
-          HOMEBREW_TAP_REPO: ${{ secrets.HOMEBREW_TAP_REPO }}
+          SCOOP_BUCKET_REPO: ${{ inputs.scoop-bucket-repo }}
+          HOMEBREW_TAP_REPO: ${{ inputs.homebrew-tap-repo }}
         with:
           arguments: ${{ inputs.arguments }}
