@@ -12,8 +12,6 @@ on:
         type: string
         required: false
     secrets:
-      GITHUB_TOKEN:
-        required: false
       GITHUB_PUBLISH_TOKEN:
         required: false
 
