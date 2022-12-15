@@ -49,7 +49,6 @@ jobs:
       scoop-bucket-repo: itzg/scoop-bucket
       homebrew-tap-repo: itzg/homebrew-tap
     secrets:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       GITHUB_PUBLISH_TOKEN: ${{ secrets.GITHUB_PUBLISH_TOKEN }}
 ```
 
