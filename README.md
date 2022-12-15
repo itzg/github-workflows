@@ -9,11 +9,13 @@ name: Test
 on:
   push:
     branches:
+      - main
       - master
     paths-ignore:
       - "*.md"
   pull_request:
     branches:
+      - main
       - master
     paths-ignore:
       - "*.md"
