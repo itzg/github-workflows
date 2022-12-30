@@ -1,6 +1,27 @@
 
 ## Recipes
 
+### Sample directory structure
+
+- `.github`
+  - [`dependabot.yml`](#dependabotyml)
+  - [`workflows`](https://docs.github.com/en/actions)
+    - [`test.yml`](#run-gradle-test)
+    - [`release-publish.yml`](#release-application-build-to-github-and-publish)
+
+### dependabot.yml
+
+[Docs](https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file)
+
+```yaml
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+```
+
 ### Run gradle test
 
 ```yaml
