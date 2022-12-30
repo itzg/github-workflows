@@ -11,6 +11,9 @@ on:
       homebrew-tap-repo:
         type: string
         required: false
+      include-test-report:
+        type: boolean
+        default: false
     secrets:
       GITHUB_PUBLISH_TOKEN:
         required: false
@@ -39,3 +42,11 @@ jobs:
           HOMEBREW_TAP_REPO: ${{ inputs.homebrew-tap-repo }}
         with:
           arguments: ${{ inputs.arguments }}
+
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        if: inputs.include-test-report && ( success() || failure() )    # run this step even if previous step failed
+        with:
+          name: test results
+          path: build/test-results/test/*.xml
+          reporter: java-junit
