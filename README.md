@@ -25,6 +25,7 @@ jobs:
     uses: itzg/github-workflows/.github/workflows/gradle-build.yml@main
     with: 
       arguments: test
+      include-test-report: true
 ```
 
 ### Release application build to GitHub and publish
