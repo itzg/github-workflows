@@ -45,7 +45,7 @@ jobs:
         with:
           arguments: |
             -PimageRepo=${{ inputs.image-repo }}
-            -PimagePlatforms=${{ inputs.image-platform }}
+            -PimagePlatforms=${{ inputs.image-platforms }}
             -PimagePush=${{ inputs.image-push }} 
             -PimageCacheFrom=type=gha
             -PimageCacheTo=type=gha,mode=max
