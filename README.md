@@ -93,3 +93,23 @@ jobs:
       plugin-portal-key: ${{ secrets.PLUGIN_PORTAL_KEY }}
       plugin-portal-secret: ${{ secrets.PLUGIN_PORTAL_SECRET }}
 ```
+
+### Simple Boot Image to GHCR
+
+```yaml
+name: "Build image"
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "[0-9]+.[0-9]+.[0-9]+"
+
+jobs:
+  build:
+    uses: itzg/github-workflows/.github/workflows/simple-boot-image-to-ghcr.yml@main
+    with:
+      image-repo: "ghcr.io/itzg"
+      image-platforms: "linux/amd64,linux/arm64"
+      extra-gradle-tasks: test
+```
