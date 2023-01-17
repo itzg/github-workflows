@@ -45,7 +45,7 @@ jobs:
 
       - name: Test Report
         uses: dorny/test-reporter@v1
-        if: inputs.include-test-report && ( success() || failure() )    # run this step even if previous step failed
+        if: github.actor == github.repository_owner && inputs.include-test-report && ( success() || failure() )    # run this step even if previous step failed
         with:
           name: test results
           path: build/test-results/test/*.xml
