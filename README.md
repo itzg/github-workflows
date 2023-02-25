@@ -76,6 +76,12 @@ jobs:
       GITHUB_PUBLISH_TOKEN: ${{ secrets.PUSH_ACCESS_GITHUB_TOKEN }}
 ```
 
+If NodeJS support is needed, add
+```yaml
+  include-node-js: true
+```
+and adjust `npm-cache-dependency-path`, if needed.
+
 ### Release gradle plugin
 
 ```yaml
@@ -113,3 +119,9 @@ jobs:
       image-platforms: "linux/amd64,linux/arm64"
       extra-gradle-tasks: test
 ```
+
+If NodeJS support is needed, add
+```yaml
+  include-node-js: true
+```
+and adjust `npm-cache-dependency-path`, if needed.
