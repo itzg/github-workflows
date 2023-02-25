@@ -14,18 +14,38 @@ on:
       extra-gradle-tasks:
         type: string
         description: "Such as test"
+      include-nodejs:
+        description: If enabled, NodeJS will be installed for use with the Gradle build
+        type: boolean
+        default: false
+      nodejs-version:
+        type: string
+        default: 'lts/hydrogen'
+      npm-cache-dependency-path:
+        description: Refer to https://github.com/actions/setup-node#caching-global-packages-data
+        type: string
+        default: 'src/main/ui/package-lock.json'
 
 jobs:
   build:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'temurin'
+
+      - uses: actions/setup-node@v3
+        if: inputs.include-nodejs
+        with:
+          node-version: ${{ inputs.nodejs-version }}
+          cache: 'npm'
+          cache-dependency-path: ${{ inputs.npm-cache-dependency-path }}
 
       - name: Setup Docker Buildx
         uses: docker/setup-buildx-action@v2

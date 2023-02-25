@@ -49,6 +49,12 @@ jobs:
       include-test-report: true
 ```
 
+If NodeJS support is needed, add
+```yaml
+  include-node-js: true
+```
+and adjust `npm-cache-dependency-path`, if needed.
+
 ### Release application build to GitHub and publish
 
 Uses [io.github.itzg.github-releaser](https://plugins.gradle.org/plugin/io.github.itzg.github-releaser) plugin
@@ -75,6 +81,12 @@ jobs:
     secrets:
       GITHUB_PUBLISH_TOKEN: ${{ secrets.PUSH_ACCESS_GITHUB_TOKEN }}
 ```
+
+If NodeJS support is needed, add
+```yaml
+  include-node-js: true
+```
+and adjust `npm-cache-dependency-path`, if needed.
 
 ### Release gradle plugin
 
@@ -113,3 +125,9 @@ jobs:
       image-platforms: "linux/amd64,linux/arm64"
       extra-gradle-tasks: test
 ```
+
+If NodeJS support is needed, add
+```yaml
+  include-node-js: true
+```
+and adjust `npm-cache-dependency-path`, if needed.
