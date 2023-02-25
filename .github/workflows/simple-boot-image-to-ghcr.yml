@@ -20,7 +20,7 @@ on:
         default: false
       nodejs-version:
         type: string
-        default: "18"
+        default: 'lts/hydrogen'
       npm-cache-dependency-path:
         description: Refer to https://github.com/actions/setup-node#caching-global-packages-data
         type: string
