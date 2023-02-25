@@ -18,6 +18,9 @@ on:
         description: If enabled, NodeJS will be installed for use with the Gradle build
         type: boolean
         default: false
+      nodejs-version:
+        type: string
+        default: "16"
       npm-cache-dependency-path:
         description: Refer to https://github.com/actions/setup-node#caching-global-packages-data
         type: string
@@ -44,7 +47,7 @@ jobs:
       - uses: actions/setup-node@v3
         if: inputs.include-nodejs
         with:
-          node-version: 16
+          node-version: ${{ inputs.nodejs-version }}
           cache: 'npm'
           cache-dependency-path: ${{ inputs.npm-cache-dependency-path }}
 

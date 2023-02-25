@@ -49,6 +49,12 @@ jobs:
       include-test-report: true
 ```
 
+If NodeJS support is needed, add
+```yaml
+  include-node-js: true
+```
+and adjust `npm-cache-dependency-path`, if needed.
+
 ### Release application build to GitHub and publish
 
 Uses [io.github.itzg.github-releaser](https://plugins.gradle.org/plugin/io.github.itzg.github-releaser) plugin
