@@ -20,7 +20,7 @@ on:
         default: false
       nodejs-version:
         type: string
-        default: "16"
+        default: "18"
       npm-cache-dependency-path:
         description: Refer to https://github.com/actions/setup-node#caching-global-packages-data
         type: string
