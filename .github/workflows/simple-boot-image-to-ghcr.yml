@@ -14,7 +14,7 @@ on:
       extra-gradle-tasks:
         type: string
         description: "Such as test"
-      include-node-js:
+      include-nodejs:
         description: If enabled, NodeJS will be installed for use with the Gradle build
         type: boolean
         default: false

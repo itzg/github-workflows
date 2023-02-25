@@ -14,7 +14,7 @@ on:
       include-test-report:
         type: boolean
         default: false
-      include-node-js:
+      include-nodejs:
         description: If enabled, NodeJS will be installed for use with the Gradle build
         type: boolean
         default: false
