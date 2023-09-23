@@ -6,9 +6,9 @@ on:
       go-version:
         type: string
         default: "1.20"
-      with-goreleaser:
+      uses-goreleaser:
         type: boolean
-        default: false
+        default: true
       goreleaser-version:
         type: string
         default: "latest"
@@ -30,7 +30,7 @@ jobs:
           go test ./...
 
       - name: Check GoReleaser
-        if: inputs.with-goreleaser
+        if: inputs.uses-goreleaser
         uses: goreleaser/goreleaser-action@v5.0.0
         with:
           version: ${{ inputs.goreleaser-version }}
