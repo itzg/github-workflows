@@ -17,6 +17,8 @@ on:
         required: true
       image-registry-password:
         required: true
+      scoop-tap-github-token:
+        required: false
 
 jobs:
   release:
@@ -55,3 +57,4 @@ jobs:
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SCOOP_TAP_GITHUB_TOKEN: ${{ secrets.scoop-tap-github-token }}
