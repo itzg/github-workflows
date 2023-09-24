@@ -131,3 +131,20 @@ If NodeJS support is needed, add
   include-node-js: true
 ```
 and adjust `npm-cache-dependency-path`, if needed.
+
+### Go test with optional goreleaser
+
+```yaml
+    uses: itzg/github-workflows/.github/workflows/go-test.yml@main
+```
+
+### Go release with goreleaser including image
+
+```yaml
+    uses: itzg/github-workflows/.github/workflows/go-with-releaser-image.yml@main
+    secrets:
+      image-registry-username: ${{ secrets.DOCKERHUB_USERNAME }}
+      image-registry-password: ${{ secrets.DOCKERHUB_TOKEN }}
+      # optional
+      scoop-tap-github-token: ${{ secrets.SCOOP_BUCKET_GITHUB_TOKEN }}
+```
