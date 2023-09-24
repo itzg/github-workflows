@@ -25,6 +25,12 @@ on:
         description: Refer to https://github.com/actions/setup-node#caching-global-packages-data
         type: string
         default: 'src/main/ui/package-lock.json'
+      java-version:
+        type: string
+        default: "17"
+      java-distribution:
+        type: string
+        default: "temurin"
     secrets:
       GITHUB_PUBLISH_TOKEN:
         required: false
@@ -41,10 +47,10 @@ jobs:
       - name: Setup Java JDK
         uses: actions/setup-java@v3.13.0
         with:
-          java-version: '17'
-          distribution: 'temurin'
+          java-version: ${{ inputs.java-version }}
+          distribution: ${{ inputs.java-distribution }}
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v3.8.1
         if: inputs.include-nodejs
         with:
           node-version: ${{ inputs.nodejs-version }}
@@ -62,7 +68,7 @@ jobs:
           arguments: ${{ inputs.arguments }}
 
       - name: Test Report
-        uses: dorny/test-reporter@v1
+        uses: dorny/test-reporter@v1.6.0
         if: github.actor == github.repository_owner && inputs.include-test-report && ( success() || failure() )    # run this step even if previous step failed
         with:
           name: test results
