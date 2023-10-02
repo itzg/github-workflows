@@ -67,7 +67,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Gradle build and push
-        uses: gradle/gradle-build-action@v2.8.1
+        uses: gradle/gradle-build-action@v2.9.0
         with:
           arguments: |
             -PimageRepo=${{ inputs.image-repo }}
