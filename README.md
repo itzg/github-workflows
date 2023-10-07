@@ -148,3 +148,9 @@ and adjust `npm-cache-dependency-path`, if needed.
       # optional
       scoop-tap-github-token: ${{ secrets.SCOOP_BUCKET_GITHUB_TOKEN }}
 ```
+
+**NOTE** The `repository.token` in `.goreleaser.yaml` needs to be configured as
+
+```yaml
+      token: "{{ .Env.SCOOP_TAP_GITHUB_TOKEN }}"
+```
