@@ -68,7 +68,7 @@ jobs:
           arguments: ${{ inputs.arguments }}
 
       - name: Test Report
-        uses: dorny/test-reporter@v1.6.0
+        uses: dorny/test-reporter@v1.7.0
         if: github.actor == github.repository_owner && inputs.include-test-report && ( success() || failure() )    # run this step even if previous step failed
         with:
           name: test results
