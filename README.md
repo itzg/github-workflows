@@ -154,3 +154,15 @@ and adjust `npm-cache-dependency-path`, if needed.
 ```yaml
       token: "{{ .Env.SCOOP_TAP_GITHUB_TOKEN }}"
 ```
+
+### Go release with goreleaser
+
+```yaml
+    uses: itzg/github-workflows/.github/workflows/go-with-releaser.yml@main
+```
+
+**NOTE** The `repository.token` in `.goreleaser.yaml` needs to be configured as
+
+```yaml
+      token: "{{ .Env.SCOOP_TAP_GITHUB_TOKEN }}"
+```
