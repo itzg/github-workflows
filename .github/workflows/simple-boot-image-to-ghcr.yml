@@ -46,7 +46,7 @@ jobs:
           java-version: ${{ inputs.java-version }}
           distribution: ${{ inputs.java-distribution }}
 
-      - uses: actions/setup-node@v4.0.0
+      - uses: actions/setup-node@v4.0.1
         if: inputs.include-nodejs
         with:
           node-version: ${{ inputs.nodejs-version }}
@@ -67,7 +67,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Gradle build and push
-        uses: gradle/gradle-build-action@v2.10.0
+        uses: gradle/gradle-build-action@v2.11.0
         with:
           arguments: |
             -PimageRepo=${{ inputs.image-repo }}
