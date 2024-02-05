@@ -23,6 +23,8 @@ jobs:
 
       - name: Setup gradle
         uses: gradle/actions/setup-gradle@v3.0.0
+        with:
+          gradle-version: wrapper
 
       - name: Run gradle build
         env:
