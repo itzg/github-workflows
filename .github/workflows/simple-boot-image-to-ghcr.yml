@@ -71,7 +71,7 @@ jobs:
 
       - name: Run gradle build
         run: |
-            ./gradlew
+          gradle
             -PimageRepo=${{ inputs.image-repo }}
             -PimagePlatforms=${{ inputs.image-platforms }}
             -PimagePush=${{ inputs.image-push }} 
