@@ -57,15 +57,16 @@ jobs:
           cache: 'npm'
           cache-dependency-path: ${{ inputs.npm-cache-dependency-path }}
 
-      - name: Gradle build
-        uses: gradle/gradle-build-action@v2.12.0
+      - name: Setup gradle
+        uses: gradle/actions/setup-gradle@v3.0.0
+
+      - name: Run gradle
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_PUBLISH_TOKEN: ${{ secrets.GITHUB_PUBLISH_TOKEN }}
           SCOOP_BUCKET_REPO: ${{ inputs.scoop-bucket-repo }}
           HOMEBREW_TAP_REPO: ${{ inputs.homebrew-tap-repo }}
-        with:
-          arguments: ${{ inputs.arguments }}
+        run: ./gradlew ${{ inputs.arguments }}
 
       - name: Test Report
         uses: dorny/test-reporter@v1.8.0
