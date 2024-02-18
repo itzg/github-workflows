@@ -68,12 +68,10 @@ jobs:
 
       - name: Setup gradle
         uses: gradle/actions/setup-gradle@v3.0.0
-        with:
-          gradle-version: wrapper
 
       - name: Run gradle build
         run: |
-          gradle
+          ./gradlew
             -PimageRepo=${{ inputs.image-repo }}
             -PimagePlatforms=${{ inputs.image-platforms }}
             -PimagePush=${{ inputs.image-push }} 

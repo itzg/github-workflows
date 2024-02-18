@@ -59,8 +59,6 @@ jobs:
 
       - name: Setup gradle
         uses: gradle/actions/setup-gradle@v3.0.0
-        with:
-          gradle-version: wrapper
 
       - name: Run gradle
         env:
@@ -68,7 +66,7 @@ jobs:
           GITHUB_PUBLISH_TOKEN: ${{ secrets.GITHUB_PUBLISH_TOKEN }}
           SCOOP_BUCKET_REPO: ${{ inputs.scoop-bucket-repo }}
           HOMEBREW_TAP_REPO: ${{ inputs.homebrew-tap-repo }}
-        run: gradle ${{ inputs.arguments }}
+        run: ./gradlew ${{ inputs.arguments }}
 
       - name: Test Report
         uses: dorny/test-reporter@v1.8.0
