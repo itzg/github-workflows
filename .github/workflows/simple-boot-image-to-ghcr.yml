@@ -70,12 +70,12 @@ jobs:
         uses: gradle/actions/setup-gradle@v3.1.0
 
       - name: Run gradle build
-        run: |
+        run: >
           ./gradlew
-            -PimageRepo=${{ inputs.image-repo }}
-            -PimagePlatforms=${{ inputs.image-platforms }}
-            -PimagePush=${{ inputs.image-push }} 
-            -PimageCacheFrom=type=gha
-            -PimageCacheTo=type=gha,mode=max
-            ${{ inputs.extra-gradle-tasks }}
-            buildSimpleBootImage
+          -PimageRepo=${{ inputs.image-repo }}
+          -PimagePlatforms=${{ inputs.image-platforms }}
+          -PimagePush=${{ inputs.image-push }} 
+          -PimageCacheFrom=type=gha
+          -PimageCacheTo=type=gha,mode=max
+          ${{ inputs.extra-gradle-tasks }}
+          buildSimpleBootImage
