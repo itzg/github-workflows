@@ -41,7 +41,7 @@ jobs:
           fetch-depth: 0
 
       - name: Set up JDK
-        uses: actions/setup-java@v4.0.0
+        uses: actions/setup-java@v4.1.0
         with:
           java-version: ${{ inputs.java-version }}
           distribution: ${{ inputs.java-distribution }}
@@ -54,7 +54,7 @@ jobs:
           cache-dependency-path: ${{ inputs.npm-cache-dependency-path }}
 
       - name: Setup Docker Buildx
-        uses: docker/setup-buildx-action@v3.0.0
+        uses: docker/setup-buildx-action@v3.1.0
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3.0.0
