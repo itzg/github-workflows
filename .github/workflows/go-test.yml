@@ -35,3 +35,11 @@ jobs:
         with:
           version: ${{ inputs.goreleaser-version }}
           args: build --clean --snapshot
+  govulncheck:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: govulncheck
+        uses: golang/govulncheck-action@v1
+        with:
+          go-version-input: ${{ inputs.go-version }}
