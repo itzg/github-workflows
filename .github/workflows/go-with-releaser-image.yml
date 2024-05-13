@@ -51,7 +51,7 @@ jobs:
           password: ${{ secrets.image-registry-password }}
 
       - name: Run GoReleaser
-        uses: goreleaser/goreleaser-action@v5.0.0
+        uses: goreleaser/goreleaser-action@v5.1.0
         with:
           version: ${{ inputs.goreleaser-version }}
           args: release --clean
