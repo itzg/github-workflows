@@ -46,7 +46,7 @@ jobs:
           java-version: ${{ inputs.java-version }}
           distribution: ${{ inputs.java-distribution }}
 
-      - uses: actions/setup-node@v4.0.2
+      - uses: actions/setup-node@v4.0.3
         if: inputs.include-nodejs
         with:
           node-version: ${{ inputs.nodejs-version }}
@@ -67,7 +67,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup gradle
-        uses: gradle/actions/setup-gradle@v3.4.2
+        uses: gradle/actions/setup-gradle@v3.5.0
 
       - name: Run gradle build
         run: >
