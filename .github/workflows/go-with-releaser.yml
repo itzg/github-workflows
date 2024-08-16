@@ -8,7 +8,7 @@ on:
         default: "1.22.2"
       goreleaser-version:
         type: string
-        default: "latest"
+        default: "~> v1"
     secrets:
       scoop-tap-github-token:
         required: false
