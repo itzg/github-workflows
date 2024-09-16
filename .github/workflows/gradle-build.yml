@@ -58,7 +58,7 @@ jobs:
           cache-dependency-path: ${{ inputs.npm-cache-dependency-path }}
 
       - name: Setup gradle
-        uses: gradle/actions/setup-gradle@v4.0.1
+        uses: gradle/actions/setup-gradle@v4.1.0
 
       - name: Run gradle
         env:
