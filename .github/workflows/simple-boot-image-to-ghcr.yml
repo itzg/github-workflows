@@ -67,7 +67,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup gradle
-        uses: gradle/actions/setup-gradle@v4.1.0
+        uses: gradle/actions/setup-gradle@v4.2.1
 
       - name: Run gradle build
         run: >
