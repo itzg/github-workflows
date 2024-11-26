@@ -27,7 +27,7 @@ on:
         default: 'src/main/ui/package-lock.json'
       java-version:
         type: string
-        default: "17"
+        default: "21"
       java-distribution:
         type: string
         default: "temurin"
