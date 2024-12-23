@@ -16,13 +16,13 @@ jobs:
           fetch-depth: 0
 
       - name: Setup Java JDK
-        uses: actions/setup-java@v4.5.0
+        uses: actions/setup-java@v4.6.0
         with:
           java-version: '21'
           distribution: 'temurin'
 
       - name: Setup gradle
-        uses: gradle/actions/setup-gradle@v4.2.1
+        uses: gradle/actions/setup-gradle@v4.2.2
 
       - name: Run gradle build
         env:
