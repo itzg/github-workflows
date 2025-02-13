@@ -15,7 +15,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4.2.2
@@ -36,7 +36,7 @@ jobs:
           version: ${{ inputs.goreleaser-version }}
           args: build --clean --snapshot
   govulncheck:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: govulncheck
