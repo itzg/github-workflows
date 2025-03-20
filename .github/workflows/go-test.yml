@@ -12,6 +12,16 @@ on:
       goreleaser-version:
         type: string
         default: "latest"
+      # Borrowed from https://github.com/golang/govulncheck-action/blob/master/action.yml
+      # since they were using an old version of setup-go
+      govuln-output-format:
+        description: 'The format of the output'
+        required: false
+        default: 'text'
+      govuln-go-package:
+        description: 'Go Package to scan with govulncheck'
+        required: false
+        default: './...'
 
 jobs:
   test:
@@ -35,11 +45,10 @@ jobs:
         with:
           version: ${{ inputs.goreleaser-version }}
           args: build --clean --snapshot
-  govulncheck:
-    runs-on: ubuntu-latest
 
-    steps:
-      - name: govulncheck
-        uses: golang/govulncheck-action@v1
-        with:
-          go-version-input: ${{ inputs.go-version }}
+      # Borrowed from https://github.com/golang/govulncheck-action/blob/master/action.yml
+      # since they were using an old version of setup-go
+      - name: Install govulncheck
+        run: go install golang.org/x/vuln/cmd/govulncheck@latest
+      - name: Run govulncheck
+        run: govulncheck -C . -format ${{ inputs.govuln-output-format }} ${{ inputs.govuln-go-package }}
