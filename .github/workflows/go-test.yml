@@ -15,10 +15,12 @@ on:
       # Borrowed from https://github.com/golang/govulncheck-action/blob/master/action.yml
       # since they were using an old version of setup-go
       govuln-output-format:
+        type: string
         description: 'The format of the output'
         required: false
         default: 'text'
       govuln-go-package:
+        type: string
         description: 'Go Package to scan with govulncheck'
         required: false
         default: './...'
