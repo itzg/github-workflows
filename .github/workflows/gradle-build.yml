@@ -69,7 +69,7 @@ jobs:
         run: ./gradlew ${{ inputs.arguments }}
 
       - name: Test Report
-        uses: dorny/test-reporter@v1.9.1
+        uses: dorny/test-reporter@v2.0.0
         if: github.actor == github.repository_owner && inputs.include-test-report && ( success() || failure() )    # run this step even if previous step failed
         with:
           name: test results
