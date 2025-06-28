@@ -14,6 +14,9 @@ on:
       include-test-report:
         type: boolean
         default: false
+      retest-showing-standard-streams:
+        type: boolean
+        default: false
       include-nodejs:
         description: If enabled, NodeJS will be installed for use with the Gradle build
         type: boolean
@@ -67,6 +70,23 @@ jobs:
           SCOOP_BUCKET_REPO: ${{ inputs.scoop-bucket-repo }}
           HOMEBREW_TAP_REPO: ${{ inputs.homebrew-tap-repo }}
         run: ./gradlew ${{ inputs.arguments }}
+
+      - name: Setup logging init script
+        if: failure() && inputs.retest-showing-standard-streams
+        run: |
+          cat <<EOF > ${{ runner.temp }}/test-logging.gradle
+          allprojects {
+            tasks.withType(Test).configureEach {
+              testLogging {
+                showStandardStreams = true
+              }
+            }
+          }
+          EOF
+
+      - name: Re-run test with output
+        if: failure() && inputs.retest-showing-standard-streams
+        run: ./gradlew --init-script ${{ runner.temp }}/test-logging.gradle test
 
       - name: Test Report
         uses: dorny/test-reporter@v2.1.0
