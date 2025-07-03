@@ -5,7 +5,8 @@ on:
     inputs:
       go-version:
         type: string
-        default: "1.24"
+      go-version-file:
+        type: string
       uses-goreleaser:
         type: boolean
         default: true
@@ -27,6 +28,7 @@ jobs:
         uses: actions/setup-go@v5.5.0
         with:
           go-version: ${{ inputs.go-version }}
+          go-version-file: ${{ inputs.go-version-file }}
 
       - name: Run tests
         run: |
