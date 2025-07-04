@@ -49,3 +49,4 @@ jobs:
         if: inputs.include-govulncheck
         with:
           go-version-input: ${{ inputs.go-version }}
+          go-version-file: ${{ inputs.go-version-file }}
