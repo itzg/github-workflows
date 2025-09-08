@@ -53,7 +53,7 @@ jobs:
           java-version: ${{ inputs.java-version }}
           distribution: ${{ inputs.java-distribution }}
 
-      - uses: actions/setup-node@v4.4.0
+      - uses: actions/setup-node@v5.0.0
         if: inputs.include-nodejs
         with:
           node-version: ${{ inputs.nodejs-version }}
