@@ -43,7 +43,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v5.0.0
+      - uses: actions/checkout@v5.0.1
         with:
           fetch-depth: 0
 
@@ -89,7 +89,7 @@ jobs:
         run: ./gradlew --init-script ${{ runner.temp }}/test-logging.gradle test
 
       - name: Test Report
-        uses: dorny/test-reporter@v2.1.1
+        uses: dorny/test-reporter@v2.2.0
         if: github.actor == github.repository_owner && inputs.include-test-report && ( success() || failure() )    # run this step even if previous step failed
         with:
           name: test results
