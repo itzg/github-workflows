@@ -36,17 +36,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6.0.0
+      - uses: actions/checkout@v6.0.1
         with:
           fetch-depth: 0
 
       - name: Set up JDK
-        uses: actions/setup-java@v5.0.0
+        uses: actions/setup-java@v5.1.0
         with:
           java-version: ${{ inputs.java-version }}
           distribution: ${{ inputs.java-distribution }}
 
-      - uses: actions/setup-node@v6.0.0
+      - uses: actions/setup-node@v6.1.0
         if: inputs.include-nodejs
         with:
           node-version: ${{ inputs.nodejs-version }}
@@ -54,7 +54,7 @@ jobs:
           cache-dependency-path: ${{ inputs.npm-cache-dependency-path }}
 
       - name: Setup Docker Buildx
-        uses: docker/setup-buildx-action@v3.11.1
+        uses: docker/setup-buildx-action@v3.12.0
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3.7.0
