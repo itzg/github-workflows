@@ -34,6 +34,9 @@ on:
       java-distribution:
         type: string
         default: "temurin"
+      timeout-minutes:
+        type: number
+        default: 30
     secrets:
       GITHUB_PUBLISH_TOKEN:
         required: false
@@ -41,6 +44,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: ${{ inputs.timeout-minutes }}
 
     steps:
       - uses: actions/checkout@v6.0.0
