@@ -166,3 +166,27 @@ and adjust `npm-cache-dependency-path`, if needed.
 ```yaml
       token: "{{ .Env.SCOOP_TAP_GITHUB_TOKEN }}"
 ```
+
+### Discord issues notifier
+
+Secrets to declare in `https://github.com/.../settings/secrets/actions`:
+
+- `DISCORD_WEBHOOK`
+
+```yaml
+name: Issues notify
+
+on:
+  issues:
+    types:
+      - opened
+      - labeled
+      - unlabeled
+      - closed
+
+jobs:
+  notify:
+    uses: itzg/github-workflows/.github/workflows/issues-notify-discord.yml@main
+    secrets:
+      discordWebhook: "${{secrets.DISCORD_WEBHOOK}}"
+```
