@@ -75,6 +75,13 @@ jobs:
           HOMEBREW_TAP_REPO: ${{ inputs.homebrew-tap-repo }}
         run: ./gradlew ${{ inputs.arguments }}
 
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4.0.0
+        with:
+          name: test-results
+          path: build/reports/tests/test
+
       - name: Setup logging init script
         if: failure() && inputs.retest-showing-standard-streams
         run: |
