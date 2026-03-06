@@ -5,6 +5,9 @@ on:
       triageLabel:
         type: string
         default: needs triage
+      discussionLabel:
+        type: string
+        default: discussion
     secrets:
       discordWebhook:
         required: true
@@ -43,6 +46,14 @@ jobs:
           DISCORD_WEBHOOK: "${{ secrets.discordWebhook }}"
         with:
           args: "🙌 Help is wanted:  ${{env.issueTitleLink}}"
+
+      - name: Start discussion
+        if: github.event.action == 'labeled' && github.event.label.name == inputs.discussionLabel
+        uses: Ilshidur/action-discord@0.4.0
+        env:
+          DISCORD_WEBHOOK: "${{ secrets.discordWebhook }}"
+        with:
+          args: "💬 Let's discuss:  ${{env.issueTitleLink}}"
 
       - name: Triaged
         if: github.event.action == 'unlabeled' && github.event.label.name == inputs.triageLabel

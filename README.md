@@ -171,7 +171,7 @@ and adjust `npm-cache-dependency-path`, if needed.
 
 Secrets to declare in `https://github.com/.../settings/secrets/actions`:
 
-- `DISCORD_WEBHOOK`
+- `DISCORD_ISSUES_WEBHOOK`
 
 ```yaml
 name: Issues notify
@@ -188,5 +188,5 @@ jobs:
   notify:
     uses: itzg/github-workflows/.github/workflows/issues-notify-discord.yml@main
     secrets:
-      discordWebhook: "${{secrets.DISCORD_WEBHOOK}}"
+      discordWebhook: "${{secrets.DISCORD_ISSUES_WEBHOOK}}"
 ```
