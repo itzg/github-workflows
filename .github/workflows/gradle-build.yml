@@ -65,7 +65,7 @@ jobs:
           cache-dependency-path: ${{ inputs.npm-cache-dependency-path }}
 
       - name: Setup gradle
-        uses: gradle/actions/setup-gradle@v6.0.1
+        uses: gradle/actions/setup-gradle@v6.1.0
 
       - name: Run gradle
         env:
@@ -77,7 +77,7 @@ jobs:
 
       - name: Upload test results
         if: always()
-        uses: actions/upload-artifact@v7.0.0
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: test-results
           path: build/reports/tests/test
