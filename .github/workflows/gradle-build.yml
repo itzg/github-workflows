@@ -30,7 +30,7 @@ on:
         default: 'src/main/ui/package-lock.json'
       java-version:
         type: string
-        default: "21"
+        default: "25"
       java-distribution:
         type: string
         default: "temurin"
@@ -43,17 +43,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v5.0.0
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
       - name: Setup Java JDK
-        uses: actions/setup-java@v5.0.0
+        uses: actions/setup-java@v5
         with:
           java-version: ${{ inputs.java-version }}
           distribution: ${{ inputs.java-distribution }}
 
-      - uses: actions/setup-node@v4.4.0
+      - uses: actions/setup-node@v6
         if: inputs.include-nodejs
         with:
           node-version: ${{ inputs.nodejs-version }}
@@ -61,7 +61,7 @@ jobs:
           cache-dependency-path: ${{ inputs.npm-cache-dependency-path }}
 
       - name: Setup gradle
-        uses: gradle/actions/setup-gradle@v4.4.2
+        uses: gradle/actions/setup-gradle@v6
 
       - name: Run gradle
         env:
@@ -89,7 +89,7 @@ jobs:
         run: ./gradlew --init-script ${{ runner.temp }}/test-logging.gradle test
 
       - name: Test Report
-        uses: dorny/test-reporter@v2.1.1
+        uses: dorny/test-reporter@v3
         if: github.actor == github.repository_owner && inputs.include-test-report && ( success() || failure() )    # run this step even if previous step failed
         with:
           name: test results
