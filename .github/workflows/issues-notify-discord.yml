@@ -16,12 +16,18 @@ jobs:
   labelNotify:
     runs-on: ubuntu-latest
     timeout-minutes: 5
-    env:
-      issueTitleLink: "[${{ github.event.issue.title }} (#${{ github.event.issue.number }})](<${{github.event.issue.html_url}}>) in ${{github.event.repository.full_name}}"
     steps:
       - name: Overview
         run: |
-          echo "Issue action ${{ github.event.action }} for ${{ github.event.issue.title }} (${{github.event.issue.number}}) with labels '${{ join(github.event.issue.labels.*.name, ', ') }}' and changed label '${{github.event.label.name}}'"
+          ACTION='${{ github.event.action }}'
+          TITLE='${{ github.event.issue.title }}'
+          NUMBER='${{ github.event.issue.number }}'
+          LABELS='${{ join(github.event.issue.labels.*.name, ", ") }}'
+          CHANGED_LABEL='${{ github.event.label.name }}'
+          URL='${{ github.event.issue.html_url }}'
+          REPO='${{ github.event.repository.full_name }}'
+          echo "issueTitleLink=[$TITLE (#$NUMBER)](<$URL>) in $REPO" >> $GITHUB_ENV
+          echo "Issue action $ACTION for $TITLE ($NUMBER) with labels '$LABELS' and changed label '$CHANGED_LABEL'"
 
       - name: Bug reported
         if: github.event.action == 'opened' && contains(github.event.issue.labels.*.name, 'bug')
@@ -70,4 +76,3 @@ jobs:
           DISCORD_WEBHOOK: "${{ secrets.discordWebhook }}"
         with:
           args: "🎉 Issue has been resolved:  ${{env.issueTitleLink}}"
-
