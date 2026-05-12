@@ -22,7 +22,7 @@ jobs:
           ACTION='${{ github.event.action }}'
           TITLE='${{ github.event.issue.title }}'
           NUMBER='${{ github.event.issue.number }}'
-          LABELS='${{ join(github.event.issue.labels.*.name, ", ") }}'
+          LABELS="${{ join(github.event.issue.labels.*.name, ', ') }}"
           CHANGED_LABEL='${{ github.event.label.name }}'
           URL='${{ github.event.issue.html_url }}'
           REPO='${{ github.event.repository.full_name }}'
