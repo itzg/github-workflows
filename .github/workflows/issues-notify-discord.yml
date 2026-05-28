@@ -1,0 +1,78 @@
+name: Issues Notify Discord
+on:
+  workflow_call:
+    inputs:
+      triageLabel:
+        type: string
+        default: needs triage
+      discussionLabel:
+        type: string
+        default: discussion
+    secrets:
+      discordWebhook:
+        required: true
+
+jobs:
+  labelNotify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Overview
+        run: |
+          ACTION='${{ github.event.action }}'
+          TITLE='${{ github.event.issue.title }}'
+          NUMBER='${{ github.event.issue.number }}'
+          LABELS="${{ join(github.event.issue.labels.*.name, ', ') }}"
+          CHANGED_LABEL='${{ github.event.label.name }}'
+          URL='${{ github.event.issue.html_url }}'
+          REPO='${{ github.event.repository.full_name }}'
+          echo "issueTitleLink=[$TITLE (#$NUMBER)](<$URL>) in $REPO" >> $GITHUB_ENV
+          echo "Issue action $ACTION for $TITLE ($NUMBER) with labels '$LABELS' and changed label '$CHANGED_LABEL'"
+
+      - name: Bug reported
+        if: github.event.action == 'opened' && contains(github.event.issue.labels.*.name, 'bug')
+        uses: Ilshidur/action-discord@0.4.0
+        env:
+          DISCORD_WEBHOOK: "${{ secrets.discordWebhook }}"
+        with:
+          args: "🪳 A bug has been reported: ${{env.issueTitleLink}}"
+
+      - name: Enhancement requested
+        if: github.event.action == 'opened' && contains(github.event.issue.labels.*.name, 'enhancement')
+        uses: Ilshidur/action-discord@0.4.0
+        env:
+          DISCORD_WEBHOOK: "${{ secrets.discordWebhook }}"
+        with:
+          args: "🎁 An enhancement has been requested:  ${{env.issueTitleLink}}"
+
+      - name: Help wanted
+        if: github.event.action == 'labeled' && github.event.label.name == 'help wanted'
+        uses: Ilshidur/action-discord@0.4.0
+        env:
+          DISCORD_WEBHOOK: "${{ secrets.discordWebhook }}"
+        with:
+          args: "🙌 Help is wanted:  ${{env.issueTitleLink}}"
+
+      - name: Start discussion
+        if: github.event.action == 'labeled' && github.event.label.name == inputs.discussionLabel
+        uses: Ilshidur/action-discord@0.4.0
+        env:
+          DISCORD_WEBHOOK: "${{ secrets.discordWebhook }}"
+        with:
+          args: "💬 Let's discuss:  ${{env.issueTitleLink}}"
+
+      - name: Triaged
+        if: github.event.action == 'unlabeled' && github.event.label.name == inputs.triageLabel
+        uses: Ilshidur/action-discord@0.4.0
+        env:
+          DISCORD_WEBHOOK: "${{ secrets.discordWebhook }}"
+        with:
+          args: "🩺 Issue has been triaged:  ${{env.issueTitleLink}}"
+
+      - name: Completed
+        if: github.event.action == 'closed' && github.event.issue.state_reason == 'completed'
+        uses: Ilshidur/action-discord@0.4.0
+        env:
+          DISCORD_WEBHOOK: "${{ secrets.discordWebhook }}"
+        with:
+          args: "🎉 Issue has been resolved:  ${{env.issueTitleLink}}"
