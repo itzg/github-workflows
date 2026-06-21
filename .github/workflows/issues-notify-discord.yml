@@ -18,14 +18,15 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Overview
+        env:
+          ACTION: ${{ github.event.action }}
+          TITLE: ${{ github.event.issue.title }}
+          NUMBER: ${{ github.event.issue.number }}
+          LABELS: ${{ join(github.event.issue.labels.*.name, ', ') }}
+          CHANGED_LABEL: ${{ github.event.label.name }}
+          URL: ${{ github.event.issue.html_url }}
+          REPO: ${{ github.event.repository.full_name }}
         run: |
-          ACTION='${{ github.event.action }}'
-          TITLE='${{ github.event.issue.title }}'
-          NUMBER='${{ github.event.issue.number }}'
-          LABELS="${{ join(github.event.issue.labels.*.name, ', ') }}"
-          CHANGED_LABEL='${{ github.event.label.name }}'
-          URL='${{ github.event.issue.html_url }}'
-          REPO='${{ github.event.repository.full_name }}'
           echo "issueTitleLink=[$TITLE (#$NUMBER)](<$URL>) in $REPO" >> $GITHUB_ENV
           echo "Issue action $ACTION for $TITLE ($NUMBER) with labels '$LABELS' and changed label '$CHANGED_LABEL'"
 
