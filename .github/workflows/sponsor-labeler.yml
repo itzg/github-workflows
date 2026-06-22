@@ -1,0 +1,60 @@
+name: Sponsor Labeler
+
+on:
+  workflow_call:
+    inputs:
+      author:
+        description: 'The GitHub username of the contributor'
+        required: true
+        type: string
+      number:
+        description: 'The issue or pull request number'
+        required: true
+        type: number
+      label:
+        description: 'The label to add if the user is a sponsor'
+        required: false
+        type: string
+        default: 'sponsor'
+
+jobs:
+  label-sponsor:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+
+    steps:
+      - name: Check if author sponsors this repository owner
+        id: sponsor
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO_OWNER: ${{ github.repository_owner }}
+          AUTHOR: ${{ inputs.author }}
+        run: |
+          is_sponsor="$(
+            gh api graphql \
+              -f owner="$REPO_OWNER" \
+              -f author="$AUTHOR" \
+              -f query='
+                query($owner: String!, $author: String!) {
+                  repositoryOwner(login: $owner) {
+                    ... on Sponsorable {
+                      isSponsoredBy(accountLogin: $author)
+                    }
+                  }
+                }
+              ' \
+              --jq '.data.repositoryOwner.isSponsoredBy // false'
+          )"
+
+          echo "is_sponsor=$is_sponsor" >> "$GITHUB_OUTPUT"
+
+      - name: Add sponsor label
+        if: steps.sponsor.outputs.is_sponsor == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ inputs.number }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          gh issue edit "$ISSUE_NUMBER" --add-label "${{ inputs.label }}"
