@@ -40,6 +40,9 @@ on:
     secrets:
       GITHUB_PUBLISH_TOKEN:
         required: false
+      cf-api-key:
+        required: false
+        description: Sets the CF_API_KEY environment variable during build
 
 jobs:
   build:
@@ -73,6 +76,7 @@ jobs:
           GITHUB_PUBLISH_TOKEN: ${{ secrets.GITHUB_PUBLISH_TOKEN }}
           SCOOP_BUCKET_REPO: ${{ inputs.scoop-bucket-repo }}
           HOMEBREW_TAP_REPO: ${{ inputs.homebrew-tap-repo }}
+          CF_API_KEY: ${{ secrets.cf-api-key }}
         run: ./gradlew ${{ inputs.arguments }}
 
       - name: Upload test results
