@@ -1,4 +1,4 @@
-name: Issues Notify Discord
+name: Issues and PRs Notify Discord
 on:
   workflow_call:
     inputs:
@@ -20,15 +20,15 @@ jobs:
       - name: Overview
         env:
           ACTION: ${{ github.event.action }}
-          TITLE: ${{ github.event.issue.title }}
-          NUMBER: ${{ github.event.issue.number }}
-          LABELS: ${{ join(github.event.issue.labels.*.name, ', ') }}
+          TITLE: ${{ github.event.issue.title || github.event.pull_request.title }}
+          NUMBER: ${{ github.event.issue.number || github.event.pull_request.number }}
+          LABELS: ${{ join(github.event.issue.labels.*.name, ', ') || join(github.event.pull_request.labels.*.name, ', ') }}
           CHANGED_LABEL: ${{ github.event.label.name }}
-          URL: ${{ github.event.issue.html_url }}
+          URL: ${{ github.event.issue.html_url || github.event.pull_request.html_url }}
           REPO: ${{ github.event.repository.full_name }}
         run: |
           echo "issueTitleLink=[$TITLE (#$NUMBER)](<$URL>) in $REPO" >> $GITHUB_ENV
-          echo "Issue action $ACTION for $TITLE ($NUMBER) with labels '$LABELS' and changed label '$CHANGED_LABEL'"
+          echo "Action $ACTION for $TITLE ($NUMBER) with labels '$LABELS' and changed label '$CHANGED_LABEL'"
 
       - name: Bug reported
         if: github.event.action == 'opened' && contains(github.event.issue.labels.*.name, 'bug')
@@ -77,3 +77,11 @@ jobs:
           DISCORD_WEBHOOK: "${{ secrets.discordWebhook }}"
         with:
           args: "🎉 Issue has been resolved:  ${{env.issueTitleLink}}"
+
+      - name: Pull Request merged
+        if: github.event.action == 'closed' && github.event.pull_request.merged == true
+        uses: Ilshidur/action-discord@0.4.0
+        env:
+          DISCORD_WEBHOOK: "${{ secrets.discordWebhook }}"
+        with:
+          args: "🚀 Pull Request merged: ${{ env.issueTitleLink }}"
