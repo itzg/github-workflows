@@ -183,10 +183,35 @@ on:
       - labeled
       - unlabeled
       - closed
+  pull_request_target:
+    types:
+      - closed
+      - labeled
 
 jobs:
   notify:
     uses: itzg/github-workflows/.github/workflows/issues-notify-discord.yml@main
     secrets:
       discordWebhook: "${{secrets.DISCORD_ISSUES_WEBHOOK}}"
+```
+
+### Sponsor Labeler
+
+```yaml
+name: Sponsor Labeler
+
+on:
+  issues:
+    types:
+      - opened
+  pull_request_target:
+    types:
+      - opened
+
+jobs:
+  label-sponsor:
+    uses: itzg/github-workflows/.github/workflows/sponsor-labeler.yml@main
+    with:
+      author: ${{ github.event.issue.user.login || github.event.pull_request.user.login }}
+      number: ${{ github.event.issue.number || github.event.pull_request.number }}
 ```
