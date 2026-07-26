@@ -20,15 +20,16 @@ jobs:
       - name: Overview
         env:
           ACTION: ${{ github.event.action }}
-          TITLE: ${{ github.event.issue.title || github.event.pull_request.title }}
-          NUMBER: ${{ github.event.issue.number || github.event.pull_request.number }}
+          TITLE: ${{ github.event.issue.title || github.event.pull_request.title || github.event.release.name }}
+          NUMBER: ${{ github.event.issue.number || github.event.pull_request.number || github.event.release.id }}
           LABELS: ${{ join(github.event.issue.labels.*.name, ', ') || join(github.event.pull_request.labels.*.name, ', ') }}
           CHANGED_LABEL: ${{ github.event.label.name }}
-          URL: ${{ github.event.issue.html_url || github.event.pull_request.html_url }}
+          URL: ${{ github.event.issue.html_url || github.event.pull_request.html_url || github.event.release.html_url }}
           REPO: ${{ github.event.repository.full_name }}
         run: |
           echo "issueTitleLink=[$TITLE (#$NUMBER)](<$URL>) in $REPO" >> $GITHUB_ENV
-          echo "Action $ACTION for $TITLE ($NUMBER) with labels '$LABELS' and changed label '$CHANGED_LABEL'"
+          echo "releaseTitleLink=[$TITLE](<$URL>) in $REPO" >> $GITHUB_ENV
+          echo "Action $ACTION for $TITLE ($NUMBER) in $REPO"
 
       - name: Bug reported
         if: github.event.action == 'opened' && contains(github.event.issue.labels.*.name, 'bug')
@@ -85,3 +86,11 @@ jobs:
           DISCORD_WEBHOOK: "${{ secrets.discordWebhook }}"
         with:
           args: "🚀 Pull Request merged: ${{ env.issueTitleLink }}"
+
+      - name: Release released
+        if: github.event.action == 'released'
+        uses: Ilshidur/action-discord@0.4.0
+        env:
+          DISCORD_WEBHOOK: "${{ secrets.discordWebhook }}"
+        with:
+          args: "🏷️ A new release has been published: ${{ env.releaseTitleLink }}"

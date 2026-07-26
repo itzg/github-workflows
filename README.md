@@ -186,7 +186,9 @@ on:
   pull_request_target:
     types:
       - closed
-      - labeled
+  release:
+    types:
+      - released
 
 jobs:
   notify:
