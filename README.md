@@ -217,3 +217,21 @@ jobs:
       author: ${{ github.event.issue.user.login || github.event.pull_request.user.login }}
       number: ${{ github.event.issue.number || github.event.pull_request.number }}
 ```
+
+### Renovate config check
+
+```yaml
+name: Validate Renovate Config
+
+on:
+  push:
+    paths:
+      - 'renovate.json'
+  pull_request:
+    paths:
+      - 'renovate.json'
+
+jobs:
+  validate:
+    uses: itzg/github-workflows/.github/workflows/renovate-config-check.yml@main
+```
