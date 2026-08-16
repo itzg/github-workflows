@@ -2,7 +2,6 @@ name: Validate Renovate Config
 
 on:
   workflow_call:
-    description: 'Validates Renovate Configuration'
 
 jobs:
   validate:
