@@ -233,5 +233,5 @@ on:
 
 jobs:
   validate:
-    uses: itzg/github-workflows/.github/workflows/renovate-config-check.yml@main
+    uses: itzg/github-workflows/.github/workflows/renovate-check.yml@main
 ```
