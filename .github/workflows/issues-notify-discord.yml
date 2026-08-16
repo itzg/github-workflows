@@ -80,7 +80,10 @@ jobs:
           args: "🎉 Issue has been resolved:  ${{env.issueTitleLink}}"
 
       - name: Pull Request merged
-        if: github.event.action == 'closed' && github.event.pull_request.merged == true
+        if: |
+          github.event.action == 'closed' 
+          && github.event.pull_request.merged == true
+          && !contains(github.event.pull_request.labels.*.name, 'dependencies')
         uses: Ilshidur/action-discord@0.4.0
         env:
           DISCORD_WEBHOOK: "${{ secrets.discordWebhook }}"

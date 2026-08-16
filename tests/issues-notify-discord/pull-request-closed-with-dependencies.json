@@ -1,0 +1,36 @@
+{
+  "action": "closed",
+  "pull_request": {
+    "number": 42,
+    "title": "Fix: resolve edge case in proxy handler",
+    "html_url": "https://github.com/itzg/example-repo/pull/42",
+    "merged": true,
+    "user": {
+      "login": "octocat",
+      "avatar_url": "https://github.com/octocat.png"
+    },
+    "head": {
+      "ref": "fix/proxy-handler"
+    },
+    "base": {
+      "ref": "main"
+    },
+    "labels": [
+      {
+        "id": 123456789,
+        "name": "dependencies",
+        "color": "d73a4a",
+        "description": "Dependencies update"
+      }
+    ]
+  },
+  "repository": {
+    "name": "example-repo",
+    "full_name": "itzg/example-repo",
+    "html_url": "https://github.com/itzg/example-repo"
+  },
+  "sender": {
+    "login": "octocat",
+    "avatar_url": "https://github.com/octocat.png"
+  }
+}
