@@ -33,67 +33,60 @@ jobs:
 
       - name: Bug reported
         if: github.event.action == 'opened' && contains(github.event.issue.labels.*.name, 'bug')
-        uses: Ilshidur/action-discord@0.4.0
-        env:
-          DISCORD_WEBHOOK: "${{ secrets.discordWebhook }}"
+
+        uses: appleboy/discord-action@v1.2.0
         with:
-          args: "🪳 A bug has been reported: ${{env.issueTitleLink}}"
+          webhook_url: ${{ secrets.discordWebhook }}
+          message: "🪳 A bug has been reported: ${{env.issueTitleLink}}"
 
       - name: Enhancement requested
         if: github.event.action == 'opened' && contains(github.event.issue.labels.*.name, 'enhancement')
-        uses: Ilshidur/action-discord@0.4.0
-        env:
-          DISCORD_WEBHOOK: "${{ secrets.discordWebhook }}"
+        uses: appleboy/discord-action@v1.2.0
         with:
-          args: "🎁 An enhancement has been requested:  ${{env.issueTitleLink}}"
+          webhook_url: ${{ secrets.discordWebhook }}
+          message: "🎁 An enhancement has been requested: ${{env.issueTitleLink}}"
 
       - name: Help wanted
         if: github.event.action == 'labeled' && github.event.label.name == 'help wanted'
-        uses: Ilshidur/action-discord@0.4.0
-        env:
-          DISCORD_WEBHOOK: "${{ secrets.discordWebhook }}"
+        uses: appleboy/discord-action@v1.2.0
         with:
-          args: "🙌 Help is wanted:  ${{env.issueTitleLink}}"
+          webhook_url: ${{ secrets.discordWebhook }}
+          message: "🙌 Help is wanted: ${{env.issueTitleLink}}"
 
       - name: Start discussion
         if: github.event.action == 'labeled' && github.event.label.name == inputs.discussionLabel
-        uses: Ilshidur/action-discord@0.4.0
-        env:
-          DISCORD_WEBHOOK: "${{ secrets.discordWebhook }}"
+        uses: appleboy/discord-action@v1.2.0
         with:
-          args: "💬 Let's discuss:  ${{env.issueTitleLink}}"
+          webhook_url: ${{ secrets.discordWebhook }}
+          message: "💬 Let's discuss: ${{env.issueTitleLink}}"
 
       - name: Triaged
         if: github.event.action == 'unlabeled' && github.event.label.name == inputs.triageLabel
-        uses: Ilshidur/action-discord@0.4.0
-        env:
-          DISCORD_WEBHOOK: "${{ secrets.discordWebhook }}"
+        uses: appleboy/discord-action@v1.2.0
         with:
-          args: "🩺 Issue has been triaged:  ${{env.issueTitleLink}}"
+          webhook_url: ${{ secrets.discordWebhook }}
+          message: "🩺 Issue has been triaged: ${{env.issueTitleLink}}"
 
       - name: Completed
         if: github.event.action == 'closed' && github.event.issue.state_reason == 'completed'
-        uses: Ilshidur/action-discord@0.4.0
-        env:
-          DISCORD_WEBHOOK: "${{ secrets.discordWebhook }}"
+        uses: appleboy/discord-action@v1.2.0
         with:
-          args: "🎉 Issue has been resolved:  ${{env.issueTitleLink}}"
+          webhook_url: ${{ secrets.discordWebhook }}
+          message: "🎉 Issue has been resolved: ${{env.issueTitleLink}}"
 
       - name: Pull Request merged
         if: |
           github.event.action == 'closed' 
           && github.event.pull_request.merged == true
           && !contains(github.event.pull_request.labels.*.name, 'dependencies')
-        uses: Ilshidur/action-discord@0.4.0
-        env:
-          DISCORD_WEBHOOK: "${{ secrets.discordWebhook }}"
+        uses: appleboy/discord-action@v1.2.0
         with:
-          args: "🚀 Pull Request merged: ${{ env.issueTitleLink }}"
+          webhook_url: ${{ secrets.discordWebhook }}
+          message: "🚀 Pull Request merged: ${{ env.issueTitleLink }}"
 
       - name: Release released
         if: github.event.action == 'released'
-        uses: Ilshidur/action-discord@0.4.0
-        env:
-          DISCORD_WEBHOOK: "${{ secrets.discordWebhook }}"
+        uses: appleboy/discord-action@v1.2.0
         with:
-          args: "🏷️ A new release has been published: ${{ env.releaseTitleLink }}"
+          webhook_url: ${{ secrets.discordWebhook }}
+          message: "🏷️ A new release has been published: ${{ env.releaseTitleLink }}"
