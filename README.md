@@ -235,3 +235,16 @@ jobs:
   validate:
     uses: itzg/github-workflows/.github/workflows/renovate-check.yml@main
 ```
+
+## Bundled actions
+
+### discord-notify
+
+```yaml
+    steps:
+      - name: Notify Discord
+        uses: itzg/github-workflows/.github/actions/discord-notify@main
+        with:
+          webhook-url: ${{ secrets.discordWebhook }}
+          message: "🪳 A bug has been reported: ${{env.issueTitleLink}}"
+```
