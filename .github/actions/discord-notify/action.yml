@@ -33,7 +33,7 @@ runs:
           PAYLOAD=$(jq -n --arg msg "$MESSAGE" '{content: $msg}')
         fi
 
-        curl -sSF -H "Content-Type: application/json" \
+        curl -sS -H "Content-Type: application/json" \
              -X POST \
              -d "$PAYLOAD" \
              "$WEBHOOK_URL"
