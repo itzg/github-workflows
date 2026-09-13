@@ -17,6 +17,14 @@ act pull_request_target \
   --secret-file .env
 ```
 
+```
+act pull_request_target `
+  -W .github/workflows/issues-notify-discord.yml `
+  -j labelNotify `
+  -e tests/issues-notify-discord/pull-request-closed.json `
+  --secret-file .env
+```
+
 #### Pull Requests with Dependabot, etc
 
 ```shell

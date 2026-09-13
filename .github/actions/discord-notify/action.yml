@@ -1,0 +1,39 @@
+name: Discord Notify
+description: 'Sends a formatted message or embed payload to a Discord webhook'
+
+inputs:
+  webhook-url:
+    description: 'Discord Webhook URL'
+    required: true
+  message:
+    description: 'Plain text message content'
+    required: false
+    default: ''
+  embed-json:
+    description: 'Raw JSON payload for Discord embeds object'
+    required: false
+    default: ''
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Send Discord Webhook
+      shell: bash
+      env:
+        WEBHOOK_URL: ${{ inputs.webhook-url }}
+        MESSAGE: ${{ inputs.message }}
+        EMBED_JSON: ${{ inputs.embed-json }}
+      run: |
+        if [ -n "$EMBED_JSON" ]; then
+          # Send rich embed payload
+          PAYLOAD=$(jq -n --arg msg "$MESSAGE" --argjson embed "$EMBED_JSON" \
+            '{content: $msg, embeds: [$embed]}')
+        else
+          # Send simple text payload
+          PAYLOAD=$(jq -n --arg msg "$MESSAGE" '{content: $msg}')
+        fi
+
+        curl -sS -H "Content-Type: application/json" \
+             -X POST \
+             -d "$PAYLOAD" \
+             "$WEBHOOK_URL"

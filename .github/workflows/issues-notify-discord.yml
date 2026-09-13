@@ -34,44 +34,44 @@ jobs:
       - name: Bug reported
         if: github.event.action == 'opened' && contains(github.event.issue.labels.*.name, 'bug')
 
-        uses: appleboy/discord-action@v1.2.0
+        uses: itzg/github-workflows/.github/actions/discord-notify@feat/bundled-discord-notify
         with:
-          webhook_url: ${{ secrets.discordWebhook }}
+          webhook-url: ${{ secrets.discordWebhook }}
           message: "🪳 A bug has been reported: ${{env.issueTitleLink}}"
 
       - name: Enhancement requested
         if: github.event.action == 'opened' && contains(github.event.issue.labels.*.name, 'enhancement')
-        uses: appleboy/discord-action@v1.2.0
+        uses: itzg/github-workflows/.github/actions/discord-notify@feat/bundled-discord-notify
         with:
-          webhook_url: ${{ secrets.discordWebhook }}
+          webhook-url: ${{ secrets.discordWebhook }}
           message: "🎁 An enhancement has been requested: ${{env.issueTitleLink}}"
 
       - name: Help wanted
         if: github.event.action == 'labeled' && github.event.label.name == 'help wanted'
-        uses: appleboy/discord-action@v1.2.0
+        uses: itzg/github-workflows/.github/actions/discord-notify@feat/bundled-discord-notify
         with:
-          webhook_url: ${{ secrets.discordWebhook }}
+          webhook-url: ${{ secrets.discordWebhook }}
           message: "🙌 Help is wanted: ${{env.issueTitleLink}}"
 
       - name: Start discussion
         if: github.event.action == 'labeled' && github.event.label.name == inputs.discussionLabel
-        uses: appleboy/discord-action@v1.2.0
+        uses: itzg/github-workflows/.github/actions/discord-notify@feat/bundled-discord-notify
         with:
-          webhook_url: ${{ secrets.discordWebhook }}
+          webhook-url: ${{ secrets.discordWebhook }}
           message: "💬 Let's discuss: ${{env.issueTitleLink}}"
 
       - name: Triaged
         if: github.event.action == 'unlabeled' && github.event.label.name == inputs.triageLabel
-        uses: appleboy/discord-action@v1.2.0
+        uses: itzg/github-workflows/.github/actions/discord-notify@feat/bundled-discord-notify
         with:
-          webhook_url: ${{ secrets.discordWebhook }}
+          webhook-url: ${{ secrets.discordWebhook }}
           message: "🩺 Issue has been triaged: ${{env.issueTitleLink}}"
 
       - name: Completed
         if: github.event.action == 'closed' && github.event.issue.state_reason == 'completed'
-        uses: appleboy/discord-action@v1.2.0
+        uses: itzg/github-workflows/.github/actions/discord-notify@feat/bundled-discord-notify
         with:
-          webhook_url: ${{ secrets.discordWebhook }}
+          webhook-url: ${{ secrets.discordWebhook }}
           message: "🎉 Issue has been resolved: ${{env.issueTitleLink}}"
 
       - name: Pull Request merged
@@ -79,14 +79,14 @@ jobs:
           github.event.action == 'closed' 
           && github.event.pull_request.merged == true
           && !contains(github.event.pull_request.labels.*.name, 'dependencies')
-        uses: appleboy/discord-action@v1.2.0
+        uses: itzg/github-workflows/.github/actions/discord-notify@feat/bundled-discord-notify
         with:
-          webhook_url: ${{ secrets.discordWebhook }}
+          webhook-url: ${{ secrets.discordWebhook }}
           message: "🚀 Pull Request merged: ${{ env.issueTitleLink }}"
 
       - name: Release released
         if: github.event.action == 'released'
-        uses: appleboy/discord-action@v1.2.0
+        uses: itzg/github-workflows/.github/actions/discord-notify@feat/bundled-discord-notify
         with:
-          webhook_url: ${{ secrets.discordWebhook }}
+          webhook-url: ${{ secrets.discordWebhook }}
           message: "🏷️ A new release has been published: ${{ env.releaseTitleLink }}"
